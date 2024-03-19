@@ -1696,26 +1696,30 @@ function RayfieldLibrary:CreateWindow(Settings)
 		end
 
 		-- Dropdown
-		function Tab:CreateDropdown(DropdownSettings)
-			local Dropdown = Elements.Template.Dropdown:Clone()
-			if string.find(DropdownSettings.Name,"closed") then
-				Dropdown.Name = "Dropdown"
-			else
-				Dropdown.Name = DropdownSettings.Name
-			end
-			Dropdown.Title.Text = DropdownSettings.Name
-			Dropdown.Visible = true
-			Dropdown.Parent = TabPage
+function Tab:CreateDropdown(DropdownSettings)
+    local Dropdown = Elements.Template.Dropdown:Clone()
+    if string.find(DropdownSettings.Name, "closed") then
+        Dropdown.Name = "Dropdown"
+    else
+        Dropdown.Name = DropdownSettings.Name
+    end
+    Dropdown.Title.Text = DropdownSettings.Name
+    Dropdown.Visible = true
+    Dropdown.Parent = TabPage
 
-			Dropdown.List.Visible = false
+    Dropdown.List.Visible = false
 
-			if typeof(DropdownSettings.CurrentOption) == "string" then
-				DropdownSettings.CurrentOption = {DropdownSettings.CurrentOption}
-			end
+    -- Add the line below to make the search bar visible
+    Dropdown.SearchBar.Visible = true
 
-			if not DropdownSettings.MultipleOptions then
-				DropdownSettings.CurrentOption = {DropdownSettings.CurrentOption[1]}
-			end
+    if typeof(DropdownSettings.CurrentOption) == "string" then
+        DropdownSettings.CurrentOption = {DropdownSettings.CurrentOption}
+    end
+
+    if not DropdownSettings.MultipleOptions then
+        DropdownSettings.CurrentOption = {DropdownSettings.CurrentOption[1]}
+    end
+
 
 			if DropdownSettings.MultipleOptions then
 				if #DropdownSettings.CurrentOption == 1 then
